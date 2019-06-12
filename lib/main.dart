@@ -20,11 +20,19 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+          primarySwatch: Colors.amber,
+          brightness: Brightness.light,
+          accentColor: Colors.blueAccent),
       home: Scaffold(
           appBar: AppBar(
             title: Text('Share book'),
           ),
-          body: ProductManager("Book 1")
+          body: ProductManager(
+            startingProduct:
+                "Book 1", //now this a named constructor, helps you to define value according to the position and name
+          )
+
           // backgroundColor: Colors.black,
           ),
     );

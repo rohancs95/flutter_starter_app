@@ -3,7 +3,9 @@ import './products.dart';
 
 class ProductManager extends StatefulWidget {
   final String startingProduct; //because the class used above is immutable
-  ProductManager(this.startingProduct); //now to pass data to state widget
+  ProductManager(
+      {this.startingProduct =
+          "Book 2"}); //now to pass data to state widget //named parameter has to be in curly braces
   @override
   State<StatefulWidget> createState() {
     return _ProductManagerState();
@@ -30,6 +32,8 @@ class _ProductManagerState extends State<ProductManager> {
       Container(
           margin: EdgeInsets.fromLTRB(10, 10, 20, 20),
           child: RaisedButton(
+            color: Theme.of(context)
+                .primaryColor, //when you use theme in scaffold we get in any part of the app using context object
             onPressed: () {
               setState(() {
                 //setting state fuction will call the stateful widget to change the view
