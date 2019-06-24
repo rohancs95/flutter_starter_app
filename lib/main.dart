@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import './pages/products.dart';
-import './pages/auth.dart';
 import './pages/manage_products.dart';
+import './pages/product.dart';
 // import './text.dart';
 
 void main() => runApp(MyApp());
@@ -21,6 +21,24 @@ class MyApp extends StatefulWidget {
 
 //_ nortation before class names makes them private to a dart file i.e you will not be able to import it somewhere else
 class _MyAppState extends State<MyApp> {
+  List<Map<String, String>> _products =
+      []; // _ notations are only used to make things private or its only  convention
+
+//deleting produt at a particular place
+  void _deleteProduct(int index) {
+    setState(() {
+      _products.removeAt(index);
+    });
+  }
+
+  void _addProduct() {
+    setState(() {
+      //setting state fuction will call the stateful widget to change the view
+      _products.add({'title': 'Book2', 'imageUrl': 'assets/book.jpg'});
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
@@ -29,8 +47,28 @@ class _MyAppState extends State<MyApp> {
           accentColor: Colors.blueAccent),
       // home: AuthPage(),
       routes: {
-        '/': (BuildContext context) => ProductsPage(),
+        '/': (BuildContext context) =>
+            ProductsPage(this._products, _addProduct, this._deleteProduct),
         '/manage-products': (BuildContext context) => ManageProductsPage(),
+      },
+      onGenerateRoute: (RouteSettings settings) {
+        final List<String> pathElements = settings.name.split("/");
+        if (pathElements[0] != "") {
+          return null;
+        } else if (pathElements[1] == 'product') {
+          final int index = int.parse(pathElements[2]);
+          return MaterialPageRoute<bool>(
+              builder: (BuildContext context) => Product(
+                    title: _products[index]['title'],
+                    imageUrl: _products[index]['imageUrl'],
+                  ));
+        }
+        return null;
+      },
+      onUnknownRoute: (RouteSettings settings) {
+        return MaterialPageRoute(
+            builder: (BuildContext context) => ProductsPage(
+                this._products, this._addProduct, this._deleteProduct));
       },
     );
     // constructor method class maeria dart imported above....

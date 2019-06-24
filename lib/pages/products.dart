@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import '../product_manager.dart';
 
 class ProductsPage extends StatelessWidget {
+  final List<Map<String, String>> products;
+  final Function addProduct;
+  final Function deleteProduct;
+  ProductsPage(this.products, this.addProduct, this.deleteProduct);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,10 +32,7 @@ class ProductsPage extends StatelessWidget {
         ),
         body: Column(
           children: <Widget>[
-            ProductManager(
-              startingProduct:
-                  null, //now this a named constructor, helps you to define value according to the position and name
-            ),
+            ProductManager(this.products, this.addProduct, this.deleteProduct),
             // TextManager( //for practising
             //   startingString: "Rohan",
             // )
