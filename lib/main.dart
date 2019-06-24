@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-import './product_manager.dart';
-import './text.dart';
+import './pages/products.dart';
+import './pages/auth.dart';
+import './pages/manage_products.dart';
+// import './text.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,24 +27,11 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.amber,
           brightness: Brightness.light,
           accentColor: Colors.blueAccent),
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text('Share book'),
-          ),
-          body: Column(
-            children: <Widget>[
-              // ProductManager(
-              //   startingProduct:
-              //       "Book 1", //now this a named constructor, helps you to define value according to the position and name
-              // ),
-              TextManager(
-                startingString: "Rohan",
-              )
-            ],
-          )
-
-          // backgroundColor: Colors.black,
-          ),
+      // home: AuthPage(),
+      routes: {
+        '/': (BuildContext context) => ProductsPage(),
+        '/manage-products': (BuildContext context) => ManageProductsPage(),
+      },
     );
     // constructor method class maeria dart imported above....
     //this widget will a part of every app you build...its root widget...
