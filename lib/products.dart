@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './pages/product.dart';
 
 class Products extends StatelessWidget {
-  final List<Map<String, String>>
+  final List<Map<String, dynamic>>
       products; //here final means that this code cannot be editing from within the class and can only be set from outside
   final Function deleteProduct;
 

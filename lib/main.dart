@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import './pages/products.dart';
 import './pages/manage_products.dart';
 import './pages/product.dart';
+import './pages/auth.dart';
 // import './text.dart';
 
 void main() => runApp(MyApp());
@@ -21,7 +22,7 @@ class MyApp extends StatefulWidget {
 
 //_ nortation before class names makes them private to a dart file i.e you will not be able to import it somewhere else
 class _MyAppState extends State<MyApp> {
-  List<Map<String, String>> _products =
+  List<Map<String, dynamic>> _products =
       []; // _ notations are only used to make things private or its only  convention
 
 //deleting produt at a particular place
@@ -31,10 +32,10 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void _addProduct() {
+  void _addProduct(Map<String, dynamic> product) {
     setState(() {
       //setting state fuction will call the stateful widget to change the view
-      _products.add({'title': 'Book2', 'imageUrl': 'assets/book.jpg'});
+      _products.add(product);
     });
   }
 
@@ -45,11 +46,11 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.amber,
           brightness: Brightness.light,
           accentColor: Colors.blueAccent),
-      // home: AuthPage(),
+      home: AuthPage(),
       routes: {
-        '/': (BuildContext context) =>
-            ProductsPage(this._products, _addProduct, this._deleteProduct),
-        '/manage-products': (BuildContext context) => ManageProductsPage(),
+        '/products': (BuildContext context) => ProductsPage(this._products),
+        '/manage-products': (BuildContext context) =>
+            ManageProductsPage(this._addProduct, this._deleteProduct),
       },
       onGenerateRoute: (RouteSettings settings) {
         final List<String> pathElements = settings.name.split("/");
@@ -67,8 +68,7 @@ class _MyAppState extends State<MyApp> {
       },
       onUnknownRoute: (RouteSettings settings) {
         return MaterialPageRoute(
-            builder: (BuildContext context) => ProductsPage(
-                this._products, this._addProduct, this._deleteProduct));
+            builder: (BuildContext context) => ProductsPage(this._products));
       },
     );
     // constructor method class maeria dart imported above....
